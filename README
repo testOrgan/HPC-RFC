@@ -1,0 +1,523 @@
+
+                    Modules Namespace for HPC sites
+
+Abstract
+
+This document specifies a syntax for defining the names of packages
+as they become available via the modules mechanism of HPC sites.
+Such definition is important when sites perform under a common project or,
+share their user base or systems administrators need to swap configuration.
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
+"SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" 
+in this document are to be interpreted as described in RFC 2119.
+
+The present is being released under a Creative Commons license (CC-BY-SA),
+by Fotis Georgatos, University of Luxembourg; April 2012.
+
+1. Introduction
+
+When the users enter an HPC system, they need to tune their software
+environment variables (to find available programs, library & include paths etc). 
+The most common solution for that issue has been _modules_ ; in practice though,
+HPC sites act in isolation, with lots of divergence in their module namespace. 
+This does not allow good training examples or working code reuse by users
+and work can be done to bring convergence of the namespace across HPC sites.
+
+This document is an attempt to define some guidelines for modules namespace
+in order to address homegeneity arguments and reduce maintenance effort.
+
+2. Scope
+
+The standard should capture the maximum possible compatibility across sites, 
+reducing unnecessary divergence, yet being practical and allowing 
+some flexibility for local HPC sites needs & policies. There is a deliberate 
+act to be compatible with existing UNITE/PARMA/ITEA2 & DEISA/PRACE guidelines.
+
+3. Standard to follow
+
+The following approach is being suggested:
+
+* Any default Package list MUST supply Package names in a case-sensitive format
+* Conforming sites MUST use EITHER the original Package names OR the lower case
+* Conforming sites MUST put the version string after the "/" separator
+* Conforming sites SHOULD prefer version strings with dots notation
+* Conforming sites SHOULD define a default version when multiple ones exist
+* Conforming sites MAY further expand the version string as per local needs
+* Conforming sites MAY create subcategories of modules as per local needs
+* Conforming sites MUST document their module configuration & namespace policy
+
+The 1st rule regards the list itself with package names -and is in essence
+defined by the package developers- while the other rules are for HPC sites.
+It is very important to adhere at the stated requirement levels and rigidly
+document any deviations, for sites wishing to be conforming to this standard.
+
+4. Definitions
+
+If definitions are required for what some terms mean, they can be found at:
+http://apps.fz-juelich.de/unite/files/unite-installguide.pdf (p.2/1.2)
+The relevant text is copied hereby verbatim:
+
+Package:
+: A software product, tool, or component which has its own name and is 
+  available / can be used / can be installed as separate entity. UNITE 
+  distinguishes between different types of packages:
+    * the actual tool packages for debugging, validation, performance 
+      profiling and tracing, 
+    * utility packages which are typically auxiliary stand-alone components 
+      and libraries used with the tools, and finally, 
+    * development packages which are only necessary for building the tools.
+
+Version:
+: Basic version naming in the form "<MajorVersion>.<MinorVersion>" or 
+  "<MajorVersion>.<MinorVersion>.<PatchLevel>" optional followed by either 
+  "b<Number>" in case of a beta version or "rc<Number>" for release 
+  candidates. Examples: 2.1, 4.1.3, 3.2b2, 4.5rc1
+
+Specialization:
+: Optional constraints which limit the applicability of a version of a 
+  package. Used on computing systems which provide multiple MPI libraries or 
+  compiler suites (e.g., typically on Linux clusters). Takes the form 
+  "-<MPILibrary>-<Compiler>-<Precision>". The three components are always 
+  specified in this order, however unnecessary constraints (not provided 
+  by a system) can be left out. Example: -openmpi-64bit
+
+Full-Qualified Version (FQV):
+: A fully-qualified version is the complete specification of a version of a 
+  package installed under specific constraints, i.e., it is the combination 
+  of a version followed by a specialization separated by a dash ("-"). 
+  Example: 1.4.3-mpich2-intel. 
+
+Platform:
+: The target computer system on which Package is installed. A platform is 
+  characterized by its vendor, architecture, and set of compiler suites and 
+  MPI libraries available for parallel programming.
+
+6. References
+
+http://modules.sourceforge.net/
+http://apps.fz-juelich.de/unite/files/unite-installguide.pdf
+http://www.deisa.eu/usersupport/user-documentation/deisa-common-production-environment/modules-usage
+http://www.deisa.eu/usersupport/user-documentation/deisa-common-production-environment/deisa-common-production-environment.pdf
+http://www.prace-ri.eu/PRACE-Common-Production
+
+
+Appendix A. Example
+
+The attached is an example and has nearly all package names from Vital-IT 
+website in modules syntax, broken up in equivalent sections. It has been a rich
+source to apply the standard; Ref: http://www.vital-it.ch/software/tools.php
+
+NOTE: The version string is always after the "/" separator (VERY important)
+and it is easily possible to convert to lower case (use "|tr 'A-Z' 'a-z'")
+as well as break up the namespace into categories, if that is desired.
+
+There are still small improvements to make in it, like check allowed characters
+in Package Names, correct capitalization per upstream definition, improve versions etc.
+Note that its lower-case equivalent is a "standard-safe" version under any conditions.
+
+auto/2000-0.9.8
+ucsc/16_06_07
+blast/2.2.25
+ncbi-blast/2.2.23
+ncbi-blast/2.2.25
+MarvinBeans/5_3_02
+MarvinBeans/5_4_01
+MarvinBeans/5_5_00
+MarvinBeans/5_5_1_0
+MarvinBeans/5_7_0
+coin-Clp/1.11
+lh3-psmc/265c0e2
+mothur/1.10.0
+mothur/1.24.1
+mothur/1.6.0
+quantiNEMO/2010_05_14
+sfscode/20110725
+embassy/2008-07-15
+embassy/2009-07-15
+embassy/2010-01-15
+embassy/2010-07-21
+EMBOSS/4.1.0
+EMBOSS/6.0.1
+EMBOSS/6.1.0
+EMBOSS/6.3.1
+lamp/0.0.7
+maker/2.0.0
+merlin/1.0.1
+merlin/1.1.2
+pedstats/0.6.8
+polyphen/2.0.17
+pseudo/0.3.5
+qtdt/2.5.1
+SAGE/5.3.0
+SAGE/5.4.0
+SAGE/6.0.1
+unphased/3.0.7
+plink/0.99r
+plink/0.99s-src
+plink/1.01-src
+plink/1.07-src
+ProbABEL/0.1.2
+gold/1.1.0
+eigenstrat
+ima/2-5.10.10
+Nemo/2.0.3
+Nemo/2.0.4
+quantinemo/1.0.3
+Inspect/20080404
+Inspect/20090910
+tandem/normal
+tandem/parallel
+trans_proteomic_pipeline/4.0.2
+trans_proteomic_pipeline/4.1.1
+NONMEM/5
+NONMEM/6.1.0
+NONMEM/7.1.0
+NONMEM/7.1.0_Jul_1
+NONMEM/7.2.0
+PsN/2.3.1
+PsN/3.2.4
+PsN/3.4.2
+BEAST/1.4.8
+BEAST/1.5.3
+BEAST/1.6.1
+consel/0.1i
+GARLI/0.942
+GARLI/0.951
+hifix/1.0.2
+HYPHY/0.99b
+iqpnni/3.0.1
+louvain/original
+molphy/2.3b3
+mrbayes/3.1.2
+mrbayes/3.2.0
+multidistribute/09.25.03
+newick-utils/1.3.0
+paml/3.15
+paml/4.4c
+paml/4.4e
+paml/4b
+phylip/3.69
+phylip/3.66
+phylobayes/2.1c
+phylobayes/2.3
+phylobayes/2.3c
+phylobayes/3.1
+phylobayes/3.3b
+phyml
+phyml-paralelo-bootstrap/2.4.5
+Phyml3_VectorModel/Jan
+phyml/2010023
+phyml/2.4.5
+phyml/3.0
+phymlrates/1.0
+Procov/2.0
+ProtTest/1.3
+quicktree/1.1
+r8s/1.71
+RAxML/7.0.4
+RAxML/7.2.3
+RAxML/7.2.8-ALPHA
+RAxML-VI-HPC/2.2.1
+RAxML-VI-HPC/2.2.3
+RAxML-VI-HPC/4.4.0
+silix/1.2.1
+Treefinder
+Treefinder/old
+inspect/7.7.12
+inspect
+popitam/6.6.13
+popitam/8.2.01
+tandem/10.12.1
+tandem/7.4.1
+R/2.10.0
+R/2.11.0
+R/2.12.0
+R/2.13.0
+R/2.8.0
+R/2.9.0
+R/2.9.1
+cd-hit-/4.5.4-2011-03-07
+paralign/4.2.2
+paralign/5.0.0
+procse/2.0
+ProtoGene
+readseq/2.1.24
+readseq/2.1.27
+readseq/2.1.30
+ssa
+WEBBLAST/MODULE
+chip-seq/1.1-0
+PRIAM/linux_jul06
+augustus/2.0.3
+augustus/2.3.1
+glimmer/3.02
+snap/2008-04-10
+snap/2009-02-03
+wise/2.2.0
+lagan/20
+mamot/s1
+hmmer/2.3.2
+hmmer/3.0
+pftools/2.3.4
+pftools/2.3.5d
+WoLFPSORT/package_v0.2
+elph/1.0.1
+hmmtop/2.1
+iprscan/4.3.1
+marcoil/1.2
+meme/3.5.0
+meme/3.5.4
+meme/4.3.0
+meme/4.6.1
+ncoils/1.0
+phylogibbs/0.9-20061001
+RepeatMasker
+RepeatMasker/3.2.1
+RepeatMasker/3.2.2
+signalp/3.0
+SMaRTFinderDR/4
+TMHMM/2.0c
+TMpred/1.1
+Weeder/1.3
+ALICUT/V2.0
+Aliscore/1.0
+amap/2.0
+amap/2.2
+boxshade/3.2.2
+BSA
+clustalw/2.0.12
+clustalw-mpi/0.13
+clustalw-mpi/0.14
+clustalw/1.83
+dialign/2.2
+DIALIGN/T
+DIALIGN/TX
+fsa/1.10.0
+Gblocks/0.91b
+kalign/2.03
+kalign/2.04
+mafft/6.240
+mafft/6.717-with-extensions
+mafft/6.815-with-extensions
+mafft/6.832-with-extensions
+mafft/6.860-with-extensions
+mavid-package/2.0.4
+MaxAlign/1.1
+MUMmer/3.20
+mumsa/1.0
+muscle/3.7
+muscle/3.8.31
+pcma/2
+poa
+prank/081202
+prank/091016
+prank/100311
+prank/100701
+probcons/1.12
+proda/1_0
+T-COFFEE/7.71
+T-COFFEE/8.93
+trimAl/1.1
+trimAl/1.2rev59
+domclust/1.0.1
+ORTHOMCL/V1.4
+iPCR
+primer3/1.1.2
+consan/1.2
+dart/0.19b
+infernal/0.81
+mfold/3.5
+probconsRNA/1.10
+ViennaRNA/1.6.5
+ViennaRNA/1.7.2
+ViennaRNA/1.8.1
+ViennaRNA/1.8.4
+phrap/0.990319
+phrap/1.080812
+tgicl
+blast/2.2.16
+blastz-/7
+blat/33
+CS-BLAST/1.0.2
+csblast/2.0.3
+csblast/2.1.1
+ncbi-blast/2.2.22
+ssaha2/2.0.0
+ssaha2/2.5.1
+ssaha/31c
+wublast
+xblast/1.0
+tagger/1.3-1
+tagger/1.5
+exonerate/1.4.0
+exonerate/2.2.0
+fasta/2
+fasta/3
+fasta/35.4.11
+fasta/35.4.4
+fasta/35.4.8
+fasta/35.4.9
+fasta/36.2.6
+fasta/36.2.7
+SIBsim4/0.17
+GOR/IV
+MUSTANG/3
+MUSTANG/3.2.1
+sap/0.5
+TMalign/20071016
+AutoDock/3.0.5
+AutoDock-mt/3.0.5
+CP2K
+GROMACS/3.3.1
+mopac/6j
+NAMD/2.6
+NAMD/2.6_test
+fugue
+sbml2tsv
+ABySS/1.0.11
+ABySS/1.0.15
+ABySS/1.0.8
+ABySS/1.0.9
+ABySS/1.1.1
+ABySS/1.2.1
+ABySS/1.2.4
+ABySS/1.2.6
+ABySS/1.2.7
+allpathslg/36173
+bfast-bwa/0.6.5a
+bowtie/0.09.8.1
+bowtie/0.10.1
+bowtie/0.11.3
+bowtie/0.12.1
+bowtie/0.12.5
+bowtie/0.12.7
+brat/1.2.1
+breakdancer/0.0.1r61
+breakdancer/0.0.1r76
+breakdancer/1.1_2010_10_25
+bsmap/1.08
+bwa/0.5.4
+bwa/0.5.9
+CASAVA/1_0
+CASAVA/1.6.0
+CASAVA/1.6.0_012610
+CASAVA/1.7.0
+CASAVA/1.7.1
+CASAVA/1.8.0
+CASAVA/1.8.2
+consed/17
+consed/19
+consed/20
+corona/lite_v4.0r2.0
+cufflinks/0.8.3
+cufflinks/0.9.0
+cufflinks/0.9.3
+cufflinks/1.0.1
+euler/sr
+euler-sr/1.1.1
+fastqc/0.4.1
+fastqc/0.7.2
+fastqc/0.9.0
+fseq/1.85
+fseq/1.x
+GAPipeline/1.0
+GAPipeline/1.3.2
+GAPipeline/1.4.0
+GAPipeline/1.5.1
+GEM-binaries-Linux/x86_64-20100419-003425
+GenomeAnalysisTK/1.0.4418
+GenomeAnalysisTK/1.0.5506
+GenomeAnalysisTK/1.2-4-gd9ea764
+genomemapper/0.2.0
+genomemapper/0.4.0
+gmap/2011-11-23
+gPLINK/2.050
+gtool/0.6.6
+HTSeq/0.4.7p1
+IlluminaApps
+impute/2.1.2_SuSE9.3_x86_64_static
+mapasm454_binary/1.1.02.15
+mapasm454_source/2.0.00.20
+mapasm454_source/2.3_091027
+mapasm454_source/2.5p1_100623
+mapasm454_source/2.5RD_100817
+mapasm454_source/2.6RC07
+Meraculous/1.4.4-rel
+mira/3.2.1
+mira/3.2.1_old
+mira/3.2.1_worked
+mira/2.9.34_dev_linux-gnu_x86_64
+Mosaik/0.9.891
+Mosaik/1.0
+mosaik/1.0.1384
+mosaik/1.1.0021
+mosaik/beta2007
+MosaikBetaRelease
+oases/0.1.14
+oases/0.1.21
+oases/0.2.01
+OLB/1.6.0
+OLB/1.6.1
+OLB/1.8.0
+OLB/1.9.0
+OLB/1.9.3
+PeakSplitter/1.0
+picard-tools/1.34
+picard-tools/1.40
+picard-tools/1.48
+Pindel/0.1
+Pindel/0.2
+Pindel/0.2.2
+RECON/1.07
+RepeatMasker-open/3-2-8
+RepeatMasker-open/3-3-0
+RepeatModeler-open/1-0-5
+RepeatScout/1.0.5
+rmblast/1.2-ncbi-blast-2.2.23-src
+rrbsmap/1.19
+rsem/1.1.13
+saet/2.2
+samtools/0.1.12a
+samtools/0.1.16
+samtools/0.1.6
+samtools/0.1.8
+shore/0.2.359.beta
+shore/0.4.1beta
+SHOREmap/1.1
+SHRiMP/2_1_1b
+snptest/2.1.1_x86_64_dynamic
+snptest/2.1.1_x86_64_static
+SOAPdenovo/V1.05
+SOAPdenovo/Release1.04
+SVDetect/0.6d
+tabix/0.2.5
+tophat/1.1.2
+tophat/1.2.0
+tophat/1.3.3
+trf/321
+trf/404
+trinityrnaseq/2011-10-29
+variant/classifier_20100603
+varid/1.0.7f
+VarScan/2.2.3
+vcftools/0.1.4a
+vcftools/0.1.5
+vcftools/0.1.7
+vcftools/0.1.4a
+velvet/0.6.04
+velvet/0.7.31
+velvet/0.7.48
+velvet/0.7.55
+velvet/0.7.56
+velvet/1.0.09
+velvet/1.0.14
+velvet/1.0.18
+velvet/1.1.03
+velvet/1.1.07
+wgs/5.1
+wgs/5.3
+dispatch
+fftw/3.1.2
+stress/1.0.0
+wsub
